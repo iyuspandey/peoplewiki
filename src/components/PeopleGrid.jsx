@@ -1,10 +1,13 @@
 import React from 'react';
 import PersonCard from './PersonCard';
 
-const PeopleGrid = ({ people, onPersonClick }) => {
+const PeopleGrid = ({ people = [], onPersonClick }) => {
+  console.log('PeopleGrid people:', people); // Debugging line
+  console.log('PeopleGrid people length:', Array.isArray(people) ? people.length : 'Not an array'); // Debugging line
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-      {people.length > 0 ? (
+      {Array.isArray(people) && people.length > 0 ? (
         people.map((person) => (
           <PersonCard 
             key={person.id} 
