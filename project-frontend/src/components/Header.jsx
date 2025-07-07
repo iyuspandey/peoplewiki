@@ -1,5 +1,7 @@
 import React from 'react';
 import { Database, Users, UserCog, GraduationCap, Search } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import AppRoutes from './routes';
 
 const Header = ({ searchTerm, setSearchTerm, activeCategory, setActiveCategory }) => {
   return (
@@ -9,7 +11,9 @@ const Header = ({ searchTerm, setSearchTerm, activeCategory, setActiveCategory }
           <div className="flex items-center mb-4 md:mb-0">
             <Database className="h-8 w-8 text-primary mr-2" />
             <h1 className="text-2xl font-bold terminal-text glow-text">
+              <Link to="/" className="text-primary hover:text-primary/80">
               NIT Jalandhar <span className="text-gray-400">|</span> People Wiki
+              </Link>
             </h1>
           </div>
           
@@ -64,6 +68,16 @@ const Header = ({ searchTerm, setSearchTerm, activeCategory, setActiveCategory }
                 <Users className="w-4 h-4 mr-1" />
                 <span>Staff</span>
               </button>
+              <Link to="/chat">
+                <button className="category-btn px-3 py-2 rounded-md flex items-center">
+                  Message
+                </button>
+              </Link>
+              <Link to="/send-receive">
+                <button className="category-btn px-3 py-2 rounded-md flex items-center">
+                  Send & Receive
+                </button>
+              </Link>
             </div>
           </div>
         </div>

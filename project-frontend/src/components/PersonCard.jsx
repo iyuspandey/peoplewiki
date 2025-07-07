@@ -11,7 +11,8 @@ const PersonCard = ({ person, onClick }) => {
         <div className="flex items-center mb-4">
           <div className="relative">
             <img 
-              src={person.image || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80'} 
+             src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${person.name}&gender=${person.gender?.toLowerCase()}`}
+
               alt={person.name} 
               className="w-16 h-16 rounded-full object-cover border-2 border-primary"
             />
@@ -26,42 +27,23 @@ const PersonCard = ({ person, onClick }) => {
             <p className="text-gray-400 text-sm">{person.role}</p>
           </div>
         </div>
-        
-        <div className="space-y-2 text-sm">
-          {person.department && (
-            <p className="text-gray-300">
-              <span className="text-primary">Department:</span> {person.department}
-            </p>
-          )}
-          
-          {person.rollNumber && (
-            <p className="text-gray-300">
-              <span className="text-primary">Roll No:</span> {person.rollNumber}
-            </p>
-          )}
-          
-          {person.position && (
-            <p className="text-gray-300">
-              <span className="text-primary">Position:</span> {person.position}
-            </p>
-          )}
-          
-          <div className="flex items-center text-gray-400">
+
+        <div className="space-y-1 text-sm text-gray-300">
+          {person.department && <p><span className="text-primary">Department:</span> {person.department}</p>}
+          {person.rollno && <p><span className="text-primary">Roll No:</span> {person.rollno}</p>}
+          {person.cgpa && <p><span className="text-primary">CGPA:</span> {person.cgpa}</p>}
+          {person.batch && <p><span className="text-primary">Batch:</span> {person.batch}</p>}
+          {person.gender && <p><span className="text-primary">Gender:</span> {person.gender}</p>}
+
+          <div className="flex items-center">
             <Mail className="w-4 h-4 mr-1 text-primary" />
             <span className="truncate">{person.email}</span>
           </div>
-          
+
           {person.phone && (
-            <div className="flex items-center text-gray-400">
+            <div className="flex items-center">
               <Phone className="w-4 h-4 mr-1 text-primary" />
               <span>{person.phone}</span>
-            </div>
-          )}
-          
-          {person.achievements && person.achievements.length > 0 && (
-            <div className="flex items-center text-gray-400">
-              <Award className="w-4 h-4 mr-1 text-primary" />
-              <span>{person.achievements.length} achievements</span>
             </div>
           )}
         </div>
@@ -70,18 +52,10 @@ const PersonCard = ({ person, onClick }) => {
   );
 };
 
-// Import at the top of the file
 const GraduationCap = ({ className }) => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
-    className={className}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+    fill="none" stroke="currentColor" strokeWidth="2"
+    strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
     <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/>
   </svg>
