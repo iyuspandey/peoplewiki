@@ -4,7 +4,7 @@ import sendFile from "./send"; // Import the sendFile function
 import { Link } from "react-router-dom";
 import { Database } from "lucide-react"; // Import the Database icon
 
-const socket = io("http://192.168.1.6:4000"); // Connect to the WebSocket server
+const socket = io("https://peoplewiki.onrender.com"); // Connect to the WebSocket server
 
 function SendReceive() {
   const [selectedFile, setSelectedFile] = useState(null);
