@@ -1,3 +1,4 @@
-data,js
+# Ignore specific files
+data.js
 seed.js
-studennts.js
+students.js
