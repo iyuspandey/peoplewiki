@@ -22,7 +22,7 @@ function Home() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://192.168.1.6:4000/api/people');
+        const response = await fetch('https://peoplewiki.onrender.com/api/people');
         const data = await response.json();
         const peopleArray = data.data || [];
         setPeople(Array.isArray(peopleArray) ? peopleArray : []);
