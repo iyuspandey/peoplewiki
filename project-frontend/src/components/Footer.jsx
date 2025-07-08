@@ -13,20 +13,20 @@ const Footer = () => {
           </div>
           
           <div className="flex space-x-4">
-            <a href="#" className="text-gray-400 hover:text-primary transition-colors">
+            <a href="https://github.com/iyuspandey/peoplewiki" className="text-gray-400 hover:text-primary transition-colors">
               <Github className="w-5 h-5" />
             </a>
-            <a href="#" className="text-gray-400 hover:text-primary transition-colors">
+            <a href="	https://images7.memedroid.com/images/UPLOADED573/5f223876c8b02.jpeg" className="text-gray-400 hover:text-primary transition-colors">
               <Code className="w-5 h-5" />
             </a>
-            <a href="#" className="text-gray-400 hover:text-primary transition-colors">
+            <a href="https://media.makeameme.org/created/no-shield.jpg" className="text-gray-400 hover:text-primary transition-colors">
               <Shield className="w-5 h-5" />
             </a>
           </div>
         </div>
         
         <div className="mt-4 text-center text-xs text-gray-500">
-          <p>This is a fictional representation for educational purposes only. Personal data is not real.</p>
+          <p>This is a fictional representation for educational purposes only. Personal data is not real any match is just a coincident .</p>
           <p className="mt-1">
             <span className="text-primary terminal-text">[root@nitj]# </span>
             <span className="typing-animation">access_granted</span>
