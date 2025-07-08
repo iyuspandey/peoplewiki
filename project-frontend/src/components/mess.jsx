@@ -4,7 +4,7 @@ import Header from "./Header";
 import { Link } from 'react-router-dom';
 import { Database, Users, UserCog, GraduationCap, Search } from 'lucide-react';
 
-const socket = io("http://192.168.1.6:4000");
+const socket = io("https://peoplewiki.onrender.com");
 
 function Mess() {
   const [messages, setMessages] = useState([]);
