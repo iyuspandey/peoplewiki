@@ -29,10 +29,17 @@ function Mess() {
 
   // Auto-scroll to bottom on new message
   useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    const container = chatContainerRef.current;
+    if (!container) return;
+  
+    const isAtBottom =
+      container.scrollHeight - container.scrollTop <= container.clientHeight + 50;
+  
+    if (isAtBottom) {
+      container.scrollTop = container.scrollHeight;
     }
   }, [messages]);
+  
 
   const handleSend = (e) => {
     e.preventDefault();
@@ -56,9 +63,10 @@ function Mess() {
       
 
       <div
-        ref={chatContainerRef}
-        className="bg-gray-900 p-4 border border-green-600 rounded mb-4 w-full max-w-2xl h-[60vh] overflow-y-auto flex flex-col justify-end"
-      >
+  ref={chatContainerRef}
+  className="bg-gray-900 p-4 border border-green-600 rounded mb-4 w-full max-w-2xl h-[60vh] overflow-y-auto space-y-2"
+>
+
         {messages.map((msg, idx) => (
           <div
             key={idx}
