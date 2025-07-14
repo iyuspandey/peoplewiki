@@ -147,6 +147,9 @@ io.on("connection", (socket) => {
 
   // Send the username to the client
   socket.emit("username", username);
+  socket.on("get-username", () => {
+    socket.emit("username", socket.username);
+  });
 
   // Broadcast incoming message
   socket.on("message", (data) => {
