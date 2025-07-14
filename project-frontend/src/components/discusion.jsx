@@ -5,7 +5,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 
-const socket = io("http://localhost:4000"); // your backend address
+const socket = io("https://peoplewiki.onrender.com"); // your backend address
 
 function formatTimeAgo(dateStr) {
   const diff = Math.floor((Date.now() - new Date(dateStr)) / 1000);
@@ -25,7 +25,7 @@ export default function DiscussionThread() {
 const [title, setTitle] = useState(location.state?.title || "Discussion Thread");
 useEffect(() => {
     if (!title) {
-      axios.get(`http://localhost:4000/api/discussions/${threadId}`)
+      axios.get(`https://peoplewiki.onrender.com/api/discussions/${threadId}`)
         .then(res => setTitle(res.data.title))
         .catch(err => console.error("Error fetching title:", err));
     }
@@ -42,7 +42,7 @@ useEffect(() => {
     socket.on("username", (uname) => setUsername(uname));
 
     // Fetch old messages
-    axios.get(`http://localhost:4000/api/discussions/${threadId}`)
+    axios.get(`https://peoplewiki.onrender.com/api/discussions/${threadId}`)
       .then(res => setMessages(res.data.messages))
       .catch(err => console.error("Error fetching messages:", err));
 
@@ -72,7 +72,7 @@ useEffect(() => {
   
     try {
       // Save to DB via REST API
-      await axios.post(`http://localhost:4000/api/discussions/${threadId}/message`, {
+      await axios.post(`https://peoplewiki.onrender.com/api/discussions/${threadId}/message`, {
         username: message.username,
         text: message.text,
         timestamp: message.timestamp,
