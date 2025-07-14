@@ -38,25 +38,31 @@ useEffect(() => {
   }, [messages]);
 
   useEffect(() => {
-    // Fetch username from socket
-    socket.on("username", (uname) => setUsername(uname));
-
-    // Fetch old messages
+    // Ask the server for username after connecting
+    socket.emit("get-username");
+  
+    socket.on("username", (uname) => {
+      setUsername(uname);
+    });
+  
+    // Fetch existing messages
     axios.get(`https://peoplewiki.onrender.com/api/discussions/${threadId}`)
       .then(res => setMessages(res.data.messages))
       .catch(err => console.error("Error fetching messages:", err));
-
-    // Listen for incoming messages
+  
+    // Listen for broadcasted messages
     socket.on("discussion-message", ({ id, message }) => {
       if (id === threadId) {
         setMessages((prev) => [...prev, message]);
       }
     });
-
+  
     return () => {
       socket.off("discussion-message");
+      socket.off("username");
     };
   }, [threadId]);
+  
 
   const handlePost = async () => {
     if (!input.trim()) return;
