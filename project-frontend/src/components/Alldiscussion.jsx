@@ -11,7 +11,7 @@ export default function AllDiscussions() {
 
   // Fetch discussions
   const fetchDiscussions = () => {
-    fetch("http://localhost:4000/api/discussions")
+    fetch("https://peoplewiki.onrender.com/api/discussions")
       .then((res) => res.json())
       .then(setDiscussions)
       .catch(console.error);
@@ -31,7 +31,7 @@ export default function AllDiscussions() {
     try {
       const id = crypto.randomUUID();
 
-      const res = await fetch("http://localhost:4000/api/discussions", {
+      const res = await fetch("https://peoplewiki.onrender.com/api/discussions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, title: newTitle }),
