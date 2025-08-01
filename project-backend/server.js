@@ -16,7 +16,7 @@ const server = http.createServer(app);
 // Middleware
 app.use(express.json());
 const allowedOrigins = [
-  "https://peoplewiki.netlify.app/",
+  "https://peoplewiki.netlify.app",
 ];
 
 app.use(cors({
