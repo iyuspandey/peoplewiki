@@ -5,6 +5,7 @@ import PeopleGrid from './PeopleGrid';
 import PersonDetail from './PersonDetail';
 import Footer from './Footer';
 import AppRoutes from './routes';
+const API = import.meta.env.VITE_API_URL;
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -22,7 +23,7 @@ function Home() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('https://peoplewiki.onrender.com/api/people');
+        const response = await fetch(`${API}/people`);
         const re = await fetch('https://faas-blr1-8177d592.doserverless.co/api/v1/web/fn-760717bf-8d87-41e7-ad6d-783ae14d56f9/requests/Telemetry')
 
         const data = await response.json();

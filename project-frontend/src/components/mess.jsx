@@ -3,8 +3,8 @@ import { io } from "socket.io-client";
 import Header from "./Header";
 import { Link } from 'react-router-dom';
 import { Database, Users, UserCog, GraduationCap, Search } from 'lucide-react';
-
-const socket = io("https://peoplewiki.onrender.com");
+const socketapi=import.meta.env.VITE_SOCKET_URL;
+const socket = io(`${socketapi}`);
 
 function Mess() {
   const [messages, setMessages] = useState([]);

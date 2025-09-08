@@ -8,10 +8,11 @@ export default function AllDiscussions() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const API = import.meta.env.VITE_API_URL;
 
   // Fetch discussions
   const fetchDiscussions = () => {
-    fetch("https://peoplewiki.onrender.com/api/discussions")
+    fetch(`${API}/discussions`)
       .then((res) => res.json())
       .then(setDiscussions)
       .catch(console.error);
@@ -31,7 +32,7 @@ export default function AllDiscussions() {
     try {
       const id = crypto.randomUUID();
 
-      const res = await fetch("https://peoplewiki.onrender.com/api/discussions", {
+      const res = await fetch(`${API}/discussions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, title: newTitle }),

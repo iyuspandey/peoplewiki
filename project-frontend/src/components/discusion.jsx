@@ -3,9 +3,11 @@ import { UserCircle } from "lucide-react";
 import io from "socket.io-client";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+const API = import.meta.env.VITE_API_URL;
+const socketapi=import.meta.env.VITE_SOCKET_URL;
 
 
-const socket = io("https://peoplewiki.onrender.com"); // your backend address
+const socket = io(`${socketapi}`); // your backend address
 
 function formatTimeAgo(dateStr) {
   const diff = Math.floor((Date.now() - new Date(dateStr)) / 1000);
@@ -25,7 +27,7 @@ export default function DiscussionThread() {
 const [title, setTitle] = useState(location.state?.title || "Discussion Thread");
 useEffect(() => {
     if (!title) {
-      axios.get(`https://peoplewiki.onrender.com/api/discussions/${threadId}`)
+      axios.get(`${API}/discussions/${threadId}`)
         .then(res => setTitle(res.data.title))
         .catch(err => console.error("Error fetching title:", err));
     }
@@ -46,7 +48,7 @@ useEffect(() => {
     });
   
     // Fetch existing messages
-    axios.get(`https://peoplewiki.onrender.com/api/discussions/${threadId}`)
+    axios.get(`${API}/discussions/${threadId}`)
       .then(res => setMessages(res.data.messages))
       .catch(err => console.error("Error fetching messages:", err));
   
@@ -78,7 +80,7 @@ useEffect(() => {
   
     try {
       // Save to DB via REST API
-      await axios.post(`https://peoplewiki.onrender.com/api/discussions/${threadId}/message`, {
+      await axios.post(`${API}/discussions/${threadId}/message`, {
         username: message.username,
         text: message.text,
         timestamp: message.timestamp,
