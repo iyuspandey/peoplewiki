@@ -3,3 +3,4 @@ data.js
 seed.js
 students.js
 .env
+node_modules/

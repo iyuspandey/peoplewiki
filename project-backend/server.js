@@ -14,6 +14,7 @@ app.use(express.json());
 const allowedOrigins = [
   "https://peoplewiki.netlify.app",
   "https://peoplewik.netlify.app",
+  "http://localhost:5173",
 ];
 
 app.use(

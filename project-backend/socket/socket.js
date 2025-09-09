@@ -1,6 +1,16 @@
 // socket.js
+const { AzureOpenAI } =require("openai");
+const apiVersion = "2024-04-01-preview";
+const endpoint = "https://dhruv-mceuub4o-eastus2.cognitiveservices.azure.com/";
+const modelName = "gpt-5-chat";
+const deployment = "gpt-5-chat";
 const { Server } = require("socket.io");
 const axios=require("axios");
+const dotenv = require("dotenv");
+dotenv.config();
+const apiKey = process.env.API_KEY;
+const options = { endpoint, apiKey, deployment, apiVersion }
+const client = new AzureOpenAI(options);
 module.exports = function setupSocket(server, allowedOrigins) {
   const io = new Server(server, {
     cors: {
@@ -63,36 +73,35 @@ module.exports = function setupSocket(server, allowedOrigins) {
       
         // Check if bot is tagged
         if (message.text.includes("@bot")) {
-          try {
-            const response = await axios.post(
-              "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
-              {
-                contents: [
-                  {
-                    parts: [{ text: message.text }],
-                  },
-                ],
-              },
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                  "X-goog-api-key": process.env.GEMINI_API_KEY, // keep your key safe
-                },
-              }
-            );
-      
-            const botReply = {
-              username: "AI Bot 🤖",
-              text: response.data.candidates?.[0]?.content?.parts?.[0]?.text || "🤖 (no reply)",
-              timestamp: new Date().toISOString(),
-            };
-      
-            // Emit reply to everyone
-            io.emit("discussion-message", { id, message: botReply });
-          } catch (err) {
-            console.error("Bot reply failed:", err.response?.data || err.message);
-          }
-        }
+      try {
+        const response = await client.chat.completions.create({
+          messages: [
+            { role: "system", content: "You are a helpful bot which replies to user messages in friendly way not like a gpt but as a friend" },
+            { role: "user", content: message.text },
+          ],
+          max_tokens: 512,
+          temperature: 1,
+          top_p: 1,
+          model: modelName,
+        });
+
+        const replyText =
+          response.choices?.[0]?.message?.content || "🤖 (no reply)";
+
+        const botReply = {
+          username: "AI Bot 🤖",
+          text: replyText,
+          timestamp: new Date().toISOString(),
+        };
+
+        io.emit("discussion-message", { id, message: botReply });
+      } catch (err) {
+        console.error(
+          "Bot reply failed:",
+          err.response?.data || err.message || err
+        );
+      }
+    }
       });
 
     socket.on("disconnect", () => {
